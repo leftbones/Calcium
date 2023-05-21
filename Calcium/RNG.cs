@@ -1,6 +1,6 @@
 ﻿namespace Calcium;
 
-static class RNG {
+public static class RNG {
     public static Random Random = new Random(Guid.NewGuid().GetHashCode());
 
     // Return true or false based on a roll using a float
