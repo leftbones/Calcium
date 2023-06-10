@@ -20,6 +20,11 @@ public struct Vector2i : IEquatable<Vector2i> {
 		Y = y;
 	}
 
+	public Vector2i(float x, float y) {
+		X = (int)x;
+		Y = (int)y;
+	}
+
 	public Vector2i(Vector2 vec2) {
 		X = (int)vec2.X;
 		Y = (int)vec2.Y;
