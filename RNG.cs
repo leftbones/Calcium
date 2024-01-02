@@ -7,11 +7,13 @@
 
 public class RNG {
     public Random Random { get; private set; }
-    public int Seed { get; private set; }
 
     public RNG(int? seed=null) {
-        Seed = seed ?? Environment.TickCount;
-        Random = new Random(Seed);
+        if (seed is null) {
+            Random = new Random();
+        } else {
+            Random = new Random((int)seed);
+        }
     }
 
     /// <summary>

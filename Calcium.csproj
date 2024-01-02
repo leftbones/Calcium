@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	<VersionPrefix>1.0.2</VersionPrefix>
+	<VersionPrefix>1.1.0</VersionPrefix>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
@@ -10,7 +10,7 @@
     <Title>Calcium</Title>
     <PackageId>$(AssemblyName)Lib</PackageId>
     <Authors>Leftbones</Authors>
-    <Description>A collection of classes I use in most of my .NET projects</Description>
+    <Description>A collection of classes I use in most of my C# game dev projects</Description>
     <PackageProjectUrl>https://github.com/leftbones/calcium</PackageProjectUrl>
     <PackageIcon>calcium.jpg</PackageIcon>
     <RepositoryUrl>https://github.com/leftbones/calcium</RepositoryUrl>
@@ -21,12 +21,12 @@
 
   <ItemGroup>
     <Content Include="calcium.ico" />
-	<None Include="LICENSE.txt" Pack="true" PackagePath=""/>
-	<None Include="README.md" Pack="true" PackagePath=""/>
+    <None Include="LICENSE.txt" Pack="true" PackagePath=""/>
+    <None Include="README.md" Pack="true" PackagePath=""/>
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\..\..\Downloads\calcium.jpg">
+    <None Include="calcium.jpg">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
