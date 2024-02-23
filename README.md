@@ -1,10 +1,12 @@
 # Calcium
 
+![CalciumLib icon from NuGet](calcium.jpg)
+
 This is a (growing) collection of utility classes I use in my .NET projects, not intended for use by anyone but me, but anyone is welcome to use and contribute to it.
 
 You can get the package on NuGet here: https://www.nuget.org/packages/CalciumLib/
 
-# Features
+## Features
 
 All methods now have XML tags for intellisense, see the code comments for method descriptions.
 
