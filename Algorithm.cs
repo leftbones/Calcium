@@ -5,7 +5,7 @@ namespace Calcium;
 /// Currently only one algorithm, but I may add some more in the future, as I find that I need them.
 /// </summary>
 
-static class Algorithm {
+public static class Algorithm {
 
     /// <summary>
     /// Generate a list of points between two points on a grid, with an optional size parameter to generate a line of a specific width.
