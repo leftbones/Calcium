@@ -18,25 +18,25 @@ public static class Direction {
     public static readonly Vector2i DownRight = new Vector2i(1, 1);
 
     // Direction Sets
-    public static readonly List<Vector2i> Vertical = new List<Vector2i>() { Direction.Up, Direction.Down };
-    public static readonly List<Vector2i> Horizontal = new List<Vector2i>() { Direction.Left, Direction.Right };
+    public static readonly List<Vector2i> Vertical = new List<Vector2i>() { Up, Down };
+    public static readonly List<Vector2i> Horizontal = new List<Vector2i>() { Left, Right };
 
-    public static readonly List<Vector2i> Upward = new List<Vector2i>() { Direction.Up, Direction.UpLeft, Direction.UpRight };
-    public static readonly List<Vector2i> Downward = new List<Vector2i>() { Direction.Down, Direction.DownLeft, Direction.DownRight };
+    public static readonly List<Vector2i> Upward = new List<Vector2i>() { Up, UpLeft, UpRight };
+    public static readonly List<Vector2i> Downward = new List<Vector2i>() { Down, DownLeft, DownRight };
 
-    public static readonly List<Vector2i> DiagonalUp = new List<Vector2i>() { Direction.UpLeft, Direction.UpRight };
-    public static readonly List<Vector2i> DiagonalDown = new List<Vector2i>() { Direction.DownLeft, Direction.DownRight };
+    public static readonly List<Vector2i> DiagonalUp = new List<Vector2i>() { UpLeft, UpRight };
+    public static readonly List<Vector2i> DiagonalDown = new List<Vector2i>() { DownLeft, DownRight };
 
-    public static readonly List<Vector2i> UpperHalf = new List<Vector2i>() { Direction.Left, Direction.UpLeft, Direction.Up, Direction.UpRight, Direction.Right };
-    public static readonly List<Vector2i> LowerHalf = new List<Vector2i>() { Direction.Left, Direction.DownLeft, Direction.Down, Direction.DownRight, Direction.Right };
+    public static readonly List<Vector2i> UpperHalf = new List<Vector2i>() { Left, UpLeft, Up, UpRight, Right };
+    public static readonly List<Vector2i> LowerHalf = new List<Vector2i>() { Left, DownLeft, Down, DownRight, Right };
 
-    public static readonly List<Vector2i> CardinalUp = new List<Vector2i>() { Direction.Left, Direction.Up, Direction.Right };
-    public static readonly List<Vector2i> CardinalDown = new List<Vector2i>() { Direction.Left, Direction.Down, Direction.Right };
+    public static readonly List<Vector2i> CardinalUp = new List<Vector2i>() { Left, Up, Right };
+    public static readonly List<Vector2i> CardinalDown = new List<Vector2i>() { Left, Down, Right };
 
-    public static readonly List<Vector2i> Cardinal = new List<Vector2i>() { Direction.Left, Direction.Right, Direction.Up, Direction.Down };
-    public static readonly List<Vector2i> Diagonal = new List<Vector2i>() { Direction.UpLeft, Direction.UpRight, Direction.DownLeft, Direction.DownRight };
+    public static readonly List<Vector2i> Cardinal = new List<Vector2i>() { Left, Right, Up, Down };
+    public static readonly List<Vector2i> Diagonal = new List<Vector2i>() { UpLeft, UpRight, DownLeft, DownRight };
 
-    public static readonly List<Vector2i> Full = new List<Vector2i>() { Direction.Up, Direction.Down, Direction.Left, Direction.Right, Direction.UpLeft, Direction.UpRight, Direction.DownLeft, Direction.DownRight };
+    public static readonly List<Vector2i> Full = new List<Vector2i>() { Up, Down, Left, Right, UpLeft, UpRight, DownLeft, DownRight };
 
     /// <summary>
     /// Shuffle a set of directions
@@ -44,8 +44,8 @@ public static class Direction {
     /// <param name="rng">RNG instance</param>
     /// <param name="directions">Direction set to shuffle</param>
     /// <returns><paramref name="directions"/> shuffled in random order</returns>
-    public static List<Vector2i> Shuffled(RNG rng, List<Vector2i> directions) {
-        return directions.OrderBy(a => rng.Random.Next()).ToList();
+    public static List<Vector2i> Shuffled(List<Vector2i> directions) {
+        return directions.OrderBy(a => RNG.Next()).ToList();
     }
 
     /// <summary>
@@ -54,8 +54,8 @@ public static class Direction {
     /// <param name="rng">RNG instance</param>
     /// <param name="directions">Direction set to choose from</param>
     /// <returns>Random value from <paramref name="directions"/></returns>
-    public static Vector2i Random(RNG rng, List<Vector2i> directions) {
-        return directions[rng.Range(0, directions.Count - 1)];
+    public static Vector2i Random(List<Vector2i> directions) {
+        return directions[RNG.Range(0, directions.Count - 1)];
     }
 
     /// <summary>
