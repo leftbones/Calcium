@@ -15,48 +15,86 @@ public static class Algorithm {
     /// <param name="to">End point of the line</param>
     /// <param name="size">Size (or thickness) of the line</param>
     /// <returns>A List<Vector2i> of points between the <paramref name="from"/> and <paramref name="to"/> points.</returns>
-    public static List<Vector2i> GenerateLine(Vector2i from, Vector2i to, int size=1) {
+    public static List<Vector2i> GetLinePoints(Vector2i from, Vector2i to, int size=1) {
         var Points = new List<Vector2i>();
 
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
-                Vector2i a = new Vector2i(from.X - size / 2 + x, from.Y - size / 2 + y);
-                Vector2i b = new Vector2i(to.X - size / 2 + x, to.Y - size / 2 + y);
+                Vector2i A = new Vector2i(from.X - size / 2 + x, from.Y - size / 2 + y);
+                Vector2i B = new Vector2i(to.X - size / 2 + x, to.Y - size / 2 + y);
 
-                int w = b.X - a.X;
-                int h = b.Y - a.Y;
-                Vector2i d1 = Vector2i.Zero;
-                Vector2i d2 = Vector2i.Zero;
+                int W = B.X - A.X;
+                int H = B.Y - A.Y;
+                Vector2i D1 = Vector2i.Zero;
+                Vector2i D2 = Vector2i.Zero;
 
-                if (w < 0) d1.X = -1; else if (w > 0) d1.X = 1;
-                if (h < 0) d1.Y = -1; else if (h > 0) d1.Y = 1;
-                if (w < 0) d2.X = -1; else if (w > 0) d2.X = 1;
+                if (W < 0) D1.X = -1; else if (W > 0) D1.X = 1;
+                if (H < 0) D1.Y = -1; else if (H > 0) D1.Y = 1;
+                if (W < 0) D2.X = -1; else if (W > 0) D2.X = 1;
 
-                int longest  = Math.Abs(w);
-                int shortest = Math.Abs(h);
+                int longest  = Math.Abs(W);
+                int shortest = Math.Abs(H);
                 if (!(longest > shortest)) {
-                    longest = Math.Abs(h);
-                    shortest = Math.Abs(w);
-                    if (h < 0) d2.Y = -1; else if (h > 0) d2.Y = 1;
-                    d2.X = 0;
+                    longest = Math.Abs(H);
+                    shortest = Math.Abs(W);
+                    if (H < 0) D2.Y = -1; else if (H > 0) D2.Y = 1;
+                    D2.X = 0;
                 }
 
                 int numerator = longest >> 1;
                 for (int i = 0; i <= longest; i++) {
-                    Points.Add(new Vector2i(a.X, a.Y));
+                    Points.Add(new Vector2i(A.X, A.Y));
                     numerator += shortest;
                     if (!(numerator < longest)) {
                         numerator -= longest;
-                        a.X += d1.X;
-                        a.Y += d1.Y;
+                        A.X += D1.X;
+                        A.Y += D1.Y;
                     } else {
-                        a.X += d2.X;
-                        a.Y += d2.Y;
+                        A.X += D2.X;
+                        A.Y += D2.Y;
                     }
                 }
             }
         }
 
         return Points.Distinct().ToList();
+    }
+
+
+    /// <summary>
+    /// Generate a list of points in a circle around a center point, with a specified radius.
+    /// </summary>
+    /// <param name="center">Center point of the circle</param>
+    /// <param name="radius">Radius of the circle</param>
+    /// <returns>A List<Vector2i> of points on the outline of the generated circle</returns>
+    public static List<Vector2i> GetCirclePoints(Vector2i center, int radius) {
+        var Points = new List<Vector2i>();
+
+        int X = radius;
+        int Y = 0;
+        int ERR = 0;
+
+        while (X >= Y) {
+            Points.Add(new Vector2i(center.X + X, center.Y + Y));
+            Points.Add(new Vector2i(center.X + Y, center.Y + X));
+            Points.Add(new Vector2i(center.X - Y, center.Y + X));
+            Points.Add(new Vector2i(center.X - X, center.Y + Y));
+            Points.Add(new Vector2i(center.X - X, center.Y - Y));
+            Points.Add(new Vector2i(center.X - Y, center.Y - X));
+            Points.Add(new Vector2i(center.X + Y, center.Y - X));
+            Points.Add(new Vector2i(center.X + X, center.Y - Y));
+
+            if (ERR <= 0) {
+                Y += 1;
+                ERR += 2 * Y + 1;
+            }
+
+            if (ERR > 0) {
+                X -= 1;
+                ERR -= 2 * X + 1;
+            }
+        }
+
+        return Points;
     }
 }
