@@ -2,7 +2,6 @@ namespace Calcium;
 
 /// <summary>
 /// Collection of some algorithm implementations I've made which should be useful in a variety of situations, mostly game development.
-/// Currently only one algorithm, but I may add some more in the future, as I find that I need them.
 /// </summary>
 
 public static class Algorithm {

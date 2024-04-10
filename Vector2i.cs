@@ -9,6 +9,9 @@ namespace Calcium;
 ///	Can be initialized with a single value (assigned to both), two int values, two float values, or a Vector2 (values are casted to int)
 /// </summary>
 
+// Todo
+// - (maybe) change the math functions to be MyVec2i.Add(n) instead of Vector2.Add(MyVec2i, n)
+
 [System.Serializable]
 public struct Vector2i : IEquatable<Vector2i> {
 	public int X;
@@ -76,7 +79,7 @@ public struct Vector2i : IEquatable<Vector2i> {
 	/// <returns>The value at index <paramref name="index"/></returns>
 	/// <exception cref="IndexOutOfRangeException"><paramref name="index"/> must be 0-1</exception>
 	public int this[int index] {
-		get {
+        readonly get {
 			if (index == 0) return X;
 			if (index == 1) return Y;
 
@@ -113,14 +116,27 @@ public struct Vector2i : IEquatable<Vector2i> {
 	// Distance
 
 	/// <summary>
-	/// Calculate the manhattan distance of the values of a Vector2i
+	/// Calculate the manhattan distance between two Vector2i points
 	/// </summary>
-	public int ManhattanDistance => Math.Abs(X) + Math.Abs(Y);
+	public readonly int ManhattanDistance(Vector2i other) {
+		return Math.Abs(X - other.X) + Math.Abs(Y - other.Y);
+	}
 
 	/// <summary>
-	/// Calculate the euclidean distance of the values of a Vector2i
+	/// Calculate the euclidean distance between two Vector2i points
 	/// </summary>
-	public int EuclideanDistance => (int)Math.Sqrt((X * X) + (Y * Y));
+	public readonly int EuclideanDistance(Vector2i other) {
+		return (int)Math.Sqrt(Math.Pow(X - other.X, 2) + Math.Pow(Y - other.Y, 2));
+	}
+
+	/// <summary>
+	/// Shorthand for `EuclideanDistance(Vector2i.Zero)`, which is more commonly used over `ManhattanDistance`
+	/// </summary>
+	/// <param name="other"></param>
+	/// <returns></returns>
+	public readonly int Distance(Vector2i other){
+		return EuclideanDistance(other);
+	}
 
 
 	//
@@ -370,23 +386,31 @@ public struct Vector2i : IEquatable<Vector2i> {
 	/// Creates a new System.Numerics.Vector2 object whos values are the same as this Vector2i
 	/// </summary>
 	/// <returns>A new Vector2 matching the values of this Vector2i</returns>
-	public Vector2 ToVector2() {
+	public readonly Vector2 ToVector2() {
 		return new Vector2(X, Y);
 	}
 
-	public override string ToString() {
+	/// <summary>
+	/// Shorthand for `ToVector2()`
+	/// </summary>
+	/// <returns>A new Vector2 matching the values of this Vector2i</returns>
+	public readonly Vector2 ToVec2() {
+		return ToVector2();
+	}
+
+	public override readonly string ToString() {
 		return string.Format("({0}, {1})", X, Y);
 	}
 
-	public override bool Equals([NotNullWhen(true)] object? obj) {
+	public override readonly bool Equals([NotNullWhen(true)] object? obj) {
 		return obj is Vector2i && base.Equals(obj);
 	}
 
-	public bool Equals(Vector2i other) {
+	public readonly bool Equals(Vector2i other) {
 		return X == other.X && Y == other.Y;
 	}
 
-	public override int GetHashCode() {
+	public override readonly int GetHashCode() {
 		return HashCode.Combine(X, Y);
 	}
 }

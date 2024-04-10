@@ -13,7 +13,7 @@ public static class RNG {
     }
 
     /// <summary>
-    /// Return a random integer between 0 and <paramref name="max"/>, this is just an alias for `Random.Next(max)`
+    /// Alias for `Random.Next()` with an optional maximum value
     /// </summary>
     /// <param name="max">The maximum value of the integer returned</param>
     /// <returns>Random int between 0 and <paramref name="max"/></returns>
@@ -22,52 +22,39 @@ public static class RNG {
     }
 
     /// <summary>
-    /// Return true if <paramref name="n"/> >= a random double from 0.0 to 1.0
+    /// Alias for `Random.NextDouble()`
     /// </summary>
-    /// <param name="n"></param>
-    /// <returns>Result of the roll</returns>
-    public static bool Roll(float n) {
-        return Random.NextDouble() <= n;
+    /// <returns>Random double</returns>
+    public static double NextDouble() {
+        return Random.NextDouble();
     }
 
     /// <summary>
-    /// Return true if <paramref name="n"/> >= a random double from 0.0 to 1.0
+    /// Return the result of an <paramref name="n"/>-sided dice roll (Shorthand for `Range(1, n)`)
     /// </summary>
-    /// <param name="n"></param>
+    /// <param name="n">Highest number on the die to roll</param>
     /// <returns>Result of the roll</returns>
-	public static bool Rollf(float n) { return Roll(n); }
-
-    /// <summary>
-    /// Return true if <paramref name="n"/> >= a random double from 0.0 to 1.0
-    /// </summary>
-    /// <param name="n"></param>
-    /// <returns>Result of the roll</returns>
-    public static bool Roll(double n) {
-        return Random.NextDouble() <= n;
+    public static int Roll(int n) {
+        return Range(1, n);
     }
 
     /// <summary>
-    /// Return true if <paramref name="n"/> >= a random double from 0.0 to 1.0
+    /// Return a random double between 0 and n (inclusive)
     /// </summary>
-    /// <param name="n"></param>
-    /// <returns>Result of the roll</returns>
-	public static bool Rolld(double n) { return Roll(n); }
-
-    /// <summary>
-    /// Return true if <paramref name="n"/> >= a random integer between 1 and 100
-    /// </summary>
-    /// <param name="n"></param>
-    /// <returns>Result of the roll</returns>
-    public static bool Roll(int n) {
-        return Random.Next(1, 100) <= n;
+    /// <param name="n">Maximum return value</param>
+    /// <returns>Double between 0 and n</returns>
+    public static double Roll(double n) {
+        return Random.NextDouble() * n;
     }
 
     /// <summary>
-    /// Return true if <paramref name="n"/> >= a random integer between 1 and 100
+    /// Return a random float between 0 and n (inclusive)
     /// </summary>
-    /// <param name="n"></param>
-    /// <returns>Result of the roll</returns>
-	public static bool Rolli(int n) { return Roll(n); }
+    /// <param name="n">Maximum return value</param>
+    /// <returns>Float between 0 and n</returns>
+    public static float Roll(float n) {
+        return (float)Roll((double)n);
+    }
 
     // Return a random int from an inclusive range
     /// <summary>
@@ -80,10 +67,9 @@ public static class RNG {
         return Random.Next(min, max+1);
     }
 
-    // Return true or false based on 1:n odds
     /// <summary>
     /// Return true if the result of a <paramref name="n"/>-sided die equals 1
-    /// Shorthand for `Range(1, n) == 1`
+    /// Shorthand for `Range(1, n) == 1` or `Roll(n) == 1`
     /// </summary>
     /// <param name="n">Number of "sides"</param>
     /// <returns>Result of the roll</returns>
@@ -92,12 +78,21 @@ public static class RNG {
     }
 
     /// <summary>
+    /// Return true if the result of a 100-sided die is less than or equal equal to <paramref name="n"/>
+    /// </summary>
+    /// <param name="n">% chance of sucess</param>
+    /// <returns>Boolean result of the % chance</returns>
+    public static bool Chance(int n) {
+        return Range(1, 100) <= n;
+    }
+
+    /// <summary>
     /// Returns the result of a coin flip
     /// Shorthand for `Roll(50)`
     /// </summary>
     /// <returns></returns>
     public static bool CoinFlip() {
-        return Roll(50);
+        return Roll(2) == 1;
     }
 
     /// <summary>
